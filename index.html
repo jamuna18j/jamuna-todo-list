@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dusk — to-do list</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <main class="app">
+    <header class="top">
+      <div>
+        <h1 id="greeting">Good evening</h1>
+        <p id="summary">Nothing planned yet.</p>
+      </div>
+      <div class="ring" role="img" aria-label="Progress">
+        <svg viewBox="0 0 44 44">
+          <circle class="track" cx="22" cy="22" r="18"/>
+          <circle class="bar" id="bar" cx="22" cy="22" r="18"/>
+        </svg>
+        <b id="pct">0%</b>
+      </div>
+    </header>
+
+    <form id="form" class="add" autocomplete="off">
+      <input id="input" type="text" placeholder="What needs doing?" maxlength="80" aria-label="New task">
+      <button type="submit" aria-label="Add task"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    </form>
+
+    <nav class="filters" id="filters">
+      <button class="on" data-f="all">All</button>
+      <button data-f="active">To do</button>
+      <button data-f="done">Done</button>
+      <i class="pill" id="pill"></i>
+    </nav>
+
+    <ul id="list" class="list"></ul>
+    <p id="empty" class="empty" hidden></p>
+
+    <footer class="foot">
+      <span id="count"></span>
+      <button id="clear" type="button">Clear finished</button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

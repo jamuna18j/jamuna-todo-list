@@ -1,0 +1,148 @@
+:root{
+  --bg:#17152e; --panel:#221f45; --panel-2:#2c2859; --ink:#f3efff; --muted:#9a95c4;
+  --peach:#ffb48a; --rose:#ff7a9c; --mint:#7be0c3; --line:rgba(255,255,255,.08);
+  --ease:cubic-bezier(.2,.9,.25,1.2);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:url("bg.jpg") center/cover fixed;color:var(--ink);font:400 16px/1.5 "DM Sans",system-ui,sans-serif;
+  display:grid;place-items:start center;padding:6vh 16px;overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--peach);outline-offset:3px}
+
+/* slow drifting sunset glow behind everything */
+.sky{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.sky span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45;animation:drift 18s ease-in-out infinite alternate}
+.sky span:nth-child(1){width:46vmax;height:46vmax;background:#ff7a9c;left:-15vmax;top:-18vmax}
+.sky span:nth-child(2){width:38vmax;height:38vmax;background:#5b4bff;right:-12vmax;bottom:-12vmax;animation-delay:-6s}
+.sky span:nth-child(3){width:26vmax;height:26vmax;background:#ffb48a;right:10vmax;top:8vmax;opacity:.22;animation-delay:-11s}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+
+.app{width:min(100%,460px);background:rgba(34,31,69,.72);backdrop-filter:blur(18px);
+  border:1px solid var(--line);border-radius:28px;padding:28px 24px 20px;
+  box-shadow:0 30px 80px rgba(8,6,30,.55);animation:rise .9s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px) scale(.96)}}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+h1{font:800 clamp(1.7rem,6vw,2.1rem)/1.05 "Bricolage Grotesque",sans-serif;letter-spacing:-.02em}
+#summary{color:var(--muted);margin-top:6px;font-size:.95rem}
+
+.ring{position:relative;width:62px;height:62px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.track{stroke:var(--line)}
+.bar{stroke:url(#g);stroke:var(--peach);stroke-linecap:round;stroke-dasharray:113.1;stroke-dashoffset:113.1;transition:stroke-dashoffset .8s var(--ease),stroke .4s}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 .8rem "Bricolage Grotesque",sans-serif}
+
+.add{display:flex;gap:10px;background:var(--panel-2);border-radius:18px;padding:6px 6px 6px 18px;
+  border:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.add:focus-within{border-color:var(--peach);box-shadow:0 0 0 5px rgba(255,180,138,.14)}
+.add input{flex:1;background:none;border:0;outline:0;min-width:0}
+.add input::placeholder{color:var(--muted)}
+.add button{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--peach),var(--rose));
+  display:grid;place-items:center;transition:transform .3s var(--ease)}
+.add button:hover{transform:rotate(90deg) scale(1.06)}
+.add button:active{transform:scale(.9)}
+.add svg{width:20px;fill:none;stroke:#2a1530;stroke-width:2.6;stroke-linecap:round}
+.add.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+.filters{position:relative;display:flex;gap:4px;margin:18px 0 10px;padding:4px;background:rgba(0,0,0,.2);border-radius:14px}
+.filters button{position:relative;z-index:1;flex:1;padding:8px;border-radius:10px;color:var(--muted);font-weight:500;transition:color .3s}
+.filters button.on{color:var(--ink)}
+.pill{position:absolute;z-index:0;top:4px;bottom:4px;left:4px;border-radius:10px;background:var(--panel-2);
+  transition:transform .45s var(--ease),width .45s var(--ease)}
+
+.list{list-style:none;padding:0;display:grid;gap:8px;min-height:20px}
+.item{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:16px;background:rgba(255,255,255,.04);
+  border:1px solid var(--line);animation:pop .5s var(--ease) both;transition:background .3s,transform .3s,opacity .3s}
+.item:hover{background:rgba(255,255,255,.07)}
+@keyframes pop{from{opacity:0;transform:translateX(-24px) scale(.94)}}
+.item.out{animation:out .35s ease forwards}
+@keyframes out{to{opacity:0;transform:translateX(60px) scale(.9);height:0;padding:0;margin:-4px 0;border-width:0}}
+
+.chk{position:relative;flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--muted);
+  display:grid;place-items:center;transition:background .3s,border-color .3s,transform .3s var(--ease)}
+.chk:hover{border-color:var(--peach);transform:scale(1.12)}
+.chk svg{width:14px;fill:none;stroke:#2a1530;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .4s .1s ease}
+.item.done .chk{background:var(--mint);border-color:var(--mint)}
+.item.done .chk svg{stroke-dashoffset:0}
+
+.txt{flex:1;overflow-wrap:anywhere;position:relative;transition:color .4s}
+.txt::after{content:"";position:absolute;left:0;top:52%;height:2px;width:100%;background:var(--muted);
+  transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
+.item.done .txt{color:var(--muted)}
+.item.done .txt::after{transform:scaleX(1)}
+
+.del{width:32px;height:32px;border-radius:10px;color:var(--muted);display:grid;place-items:center;opacity:0;transition:opacity .25s,background .25s,color .25s}
+.item:hover .del,.del:focus-visible{opacity:1}
+.del:hover{background:rgba(255,122,156,.18);color:var(--rose)}
+.del svg{width:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+@media(hover:none){.del{opacity:.7}}
+
+.empty{text-align:center;color:var(--muted);padding:26px 10px;animation:pop .6s var(--ease) both}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.foot button{color:var(--muted);padding:4px 8px;border-radius:8px;transition:color .25s}
+.foot button:hover{color:var(--rose)}
+
+.spark{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:9;animation:spark .8s ease-out forwards}
+@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.sky span{animation:none}}
+.sky{display:none}
+/* ===== Photo theme: no box, text sits directly on your photo ===== */
+.sky{display:none}
+:root{--ink:#fff;--muted:rgba(255,255,255,.85);--line:rgba(255,255,255,.3)}
+
+.app{background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;box-shadow:none;padding:24px 6px 18px}
+.app *{text-shadow:0 1px 3px rgba(0,0,0,.7),0 0 22px rgba(0,0,0,.5)}
+
+h1{font-size:clamp(2rem,8vw,2.7rem)}
+#summary{font-size:1rem;font-weight:500}
+
+.track{stroke:rgba(255,255,255,.4)}
+.bar{filter:drop-shadow(0 0 4px rgba(0,0,0,.5))}
+
+.add{background:rgba(255,255,255,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.4)}
+.add input::placeholder{color:rgba(255,255,255,.85)}
+
+.filters{background:none;padding:0;border-radius:0;border-bottom:1px solid var(--line)}
+.filters button{font-weight:700;padding:10px 8px}
+.filters button.on{color:#fff}
+.pill{top:auto;bottom:-1px;height:3px;border-radius:3px;background:var(--peach);box-shadow:0 0 10px var(--peach)}
+
+.item{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:15px 6px}
+.item:hover{background:rgba(255,255,255,.14);border-radius:14px}
+.txt{font-size:1.08rem;font-weight:500}
+.txt::after{background:#fff}
+.item.done .txt{opacity:.75}
+
+.chk{border-color:#fff;box-shadow:0 0 10px rgba(0,0,0,.45)}
+.del{color:#fff;opacity:.85}
+.foot{border-top-color:var(--line)}
+.foot button{color:#fff;font-weight:500}
+.empty{color:#fff;font-weight:500}
+/* ===== Dark, extra-bold text with a light glow for readability ===== */
+:root{--ink:#14101f;--muted:#1d1530;--line:rgba(20,16,31,.5)}
+.app *{text-shadow:0 0 6px rgba(255,255,255,.95),0 0 16px rgba(255,255,255,.75),0 0 28px rgba(255,255,255,.5)}
+
+h1{color:#14101f;font-weight:900}
+#summary,.ring b,.foot,.foot button,.empty{color:#14101f;font-weight:800}
+.txt{color:#14101f;font-weight:800;font-size:1.12rem}
+.item.done .txt{opacity:.7}
+.txt::after{background:#14101f;height:3px}
+
+.filters button{color:#2a2140;font-weight:800}
+.filters button.on{color:#000}
+.pill{background:#14101f;box-shadow:none}
+
+.add{background:rgba(255,255,255,.5);border-color:rgba(20,16,31,.45)}
+.add input{color:#14101f;font-weight:700}
+.add input::placeholder{color:#3a3050;font-weight:700}
+
+.chk{border-color:#14101f;border-width:3px;box-shadow:none}
+.del{color:#14101f;opacity:1}
+.item:hover{background:rgba(255,255,255,.35)}
+.track{stroke:rgba(20,16,31,.3)}

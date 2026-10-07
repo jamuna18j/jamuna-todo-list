@@ -1,0 +1,32 @@
+/* ===== Photo theme: no box, text sits directly on your photo ===== */
+.sky{display:none}
+:root{--ink:#fff;--muted:rgba(255,255,255,.85);--line:rgba(255,255,255,.3)}
+
+.app{background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;box-shadow:none;padding:24px 6px 18px}
+.app *{text-shadow:0 1px 3px rgba(0,0,0,.7),0 0 22px rgba(0,0,0,.5)}
+
+h1{font-size:clamp(2rem,8vw,2.7rem)}
+#summary{font-size:1rem;font-weight:500}
+
+.track{stroke:rgba(255,255,255,.4)}
+.bar{filter:drop-shadow(0 0 4px rgba(0,0,0,.5))}
+
+.add{background:rgba(255,255,255,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.4)}
+.add input::placeholder{color:rgba(255,255,255,.85)}
+
+.filters{background:none;padding:0;border-radius:0;border-bottom:1px solid var(--line)}
+.filters button{font-weight:700;padding:10px 8px}
+.filters button.on{color:#fff}
+.pill{top:auto;bottom:-1px;height:3px;border-radius:3px;background:var(--peach);box-shadow:0 0 10px var(--peach)}
+
+.item{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:15px 6px}
+.item:hover{background:rgba(255,255,255,.14);border-radius:14px}
+.txt{font-size:1.08rem;font-weight:500}
+.txt::after{background:#fff}
+.item.done .txt{opacity:.75}
+
+.chk{border-color:#fff;box-shadow:0 0 10px rgba(0,0,0,.45)}
+.del{color:#fff;opacity:.85}
+.foot{border-top-color:var(--line)}
+.foot button{color:#fff;font-weight:500}
+.empty{color:#fff;font-weight:500}
